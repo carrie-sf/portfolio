@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pixel Character Portfolio</title>
+<style>
+    :root {
+      color-scheme: light;
+      --bg-chrome: #dfe9ff;
+      --bg-editor: #fff7fb;
+      --bg-card: #ffffff;
+      --text-primary: #20213f;
+      --text-secondary: #555978;
+      --text-muted: #8589a8;
+      --stroke: #20213f;
+      --accent: #6f8cff;
+      --accent-dark: #5574e8;
+      --green: #54c6ff;
+      --orange: #ff7fbd;
+      --yellow: #ffe1f0;
+      --shadow: #20213f;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+ 
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      color: var(--text-primary);
+      background:
+        linear-gradient(90deg, rgba(111,140,255,.10) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,127,189,.10) 1px, transparent 1px),
+        var(--bg-chrome);
+      background-size: 24px 24px;
+      image-rendering: pixelated;
+      -webkit-font-smoothing: none;
+      font-size: 14px;
+      line-height: 20px;
+    }
+ 
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(22px, 3vw, 34px); line-height: 1.05; font-weight: 900; letter-spacing: -0.04em; }
+    h2 { font-size: clamp(20px, 2.2vw, 28px); line-height: 1.1; font-weight: 900; }
+    h3 { font-size: 15px; line-height: 20px; font-weight: 900; }
+    button { font: inherit; cursor: pointer; }
+    strong { font-weight: 900; }
+ 
+    .page {
+      width: min(1240px, calc(100vw - 24px));
+      height: calc(100svh - 24px);
+      margin: 12px auto;
+      padding: clamp(12px, 2vw, 22px);
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      gap: var(--space-4);
+      background: var(--bg-editor);
+      border: 4px solid var(--stroke);
+      box-shadow: 8px 8px 0 var(--shadow);
+      overflow: hidden;
+    }
+ 
+    .topbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+ 
+    .intro { display: grid; gap: var(--space-2); max-width: 760px; }
+    .eyebrow {
+      font-size: 11px;
+      line-height: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .text-secondary { color: var(--text-secondary); }
+    .text-small { font-size: 12px; line-height: 16px; }
+ 
+ 
+    .switchboard {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+ 
+    .switch-card {
+      display: grid;
+      grid-template-columns: 36px minmax(0, 1fr) 36px;
+      gap: var(--space-2);
+      align-items: center;
+      padding: var(--space-2);
+      border: 3px solid var(--stroke);
+      background: #ffffff;
+      box-shadow: 4px 4px 0 var(--shadow);
+    }
+    .switch-card.active { background: var(--yellow); }
+    .switch-meta { min-width: 0; text-align: center; }
+    .switch-label {
+      display: block;
+      font-size: 10px;
+      line-height: 13px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .switch-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 900;
+    }
+    .arrow {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--stroke);
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 3px 3px 0 var(--shadow);
+      font-weight: 900;
+    }
+    .arrow:hover, .arrow:focus-visible { background: var(--accent-dark); outline: 3px solid var(--orange); outline-offset: 2px; }
+    .arrow:active { transform: translate(3px, 3px); box-shadow: none; }
+ 
+    .play-area {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(390px, 58%) minmax(320px, 42%);
+      gap: clamp(14px, 2vw, 24px);
+      align-items: stretch;
+    }
+ 
+    .panel {
+      min-height: 0;
+      border: 4px solid var(--stroke);
+      background: var(--bg-card);
+      box-shadow: 6px 6px 0 var(--shadow);
+    }
+ 
+    .info-column {
+      min-height: 0;
+      height: 100%;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      gap: var(--space-4);
+    }
+ 
+    .description-panel {
+      min-height: 0;
+      height: 100%;
+      padding: clamp(16px, 2vw, 24px);
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      gap: var(--space-4);
+      overflow: hidden;
+    }
+ 
+    .contact-panel {
+      padding: var(--space-4);
+      display: grid;
+      gap: var(--space-3);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+    .contact-item {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: var(--space-2);
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 6px;
+      border: 2px solid var(--stroke);
+      background: #ffffff;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .contact-item span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text-secondary);
+    }
+ 
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+ 
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border: 3px solid var(--stroke);
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 3px 3px 0 var(--shadow);
+      font-size: 11px;
+      line-height: 14px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+ 
+    .detail-body {
+      color: var(--text-secondary);
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.45;
+    }
+ 
+    .detail-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text-secondary);
+      overflow: auto;
+    }
+ 
+    .stats { display: grid; gap: var(--space-2); }
+    .stat-row {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: var(--space-2);
+      align-items: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .bar-track {
+      height: 13px;
+      border: 2px solid var(--stroke);
+      background: #e6e1d3;
+    }
+    .bar-fill { height: 100%; width: var(--w); background: var(--green); }
+ 
+    .stage-panel {
+      height: 100%;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background-color: #9bd2ff;
+      background-size: 18px 18px, 18px 18px, auto;
+    }
+    .stage-panel.scene-field {
+      background:
+        linear-gradient(90deg, rgba(111,140,255,.13) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,127,189,.13) 1px, transparent 1px),
+        linear-gradient(180deg, #bfe8ff 0 58%, #ffc6e2 58% 100%);
+      background-size: 18px 18px, 18px 18px, auto;
+    }
+    .stage-panel.scene-lab {
+      background:
+        linear-gradient(90deg, rgba(111,140,255,.18) 2px, transparent 2px),
+        linear-gradient(0deg, rgba(255,127,189,.18) 2px, transparent 2px),
+        linear-gradient(180deg, #e5f6ff 0 60%, #ffd7ef 60% 100%);
+      background-size: 32px 32px, 32px 32px, auto;
+    }
+    .stage-panel.scene-sunset {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,.22) 1px, transparent 1px),
+        linear-gradient(180deg, #ff8fcf 0 22%, #ffd7ef 22% 58%, #9bd2ff 58% 100%);
+      background-size: 20px 20px, 20px 20px, auto;
+    }
+    .stage-panel.scene-scroll {
+      background:
+        linear-gradient(90deg, rgba(27,27,36,.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(27,27,36,.08) 1px, transparent 1px),
+        repeating-linear-gradient(90deg, #9bd2ff 0 80px, #ffb3dc 80px 160px);
+      background-size: 18px 18px, 18px 18px, auto;
+      animation: scene-pan 8s linear infinite;
+    }
+    .stage-panel.scene-stars {
+      background:
+        radial-gradient(circle, #fff 0 2px, transparent 3px),
+        radial-gradient(circle, #fff0a6 0 2px, transparent 3px),
+        linear-gradient(180deg, #31346b 0 66%, #5b3f7d 66% 100%);
+      background-size: 72px 72px, 114px 114px, auto;
+      background-position: 0 0, 24px 36px, 0 0;
+      animation: scene-drift 10s linear infinite;
+    }
+    @keyframes scene-pan {
+      from { background-position: 0 0, 0 0, 0 0; }
+      to { background-position: 18px 18px, 18px 18px, -320px 0; }
+    }
+    @keyframes scene-drift {
+      from { background-position: 0 0, 24px 36px, 0 0; }
+      to { background-position: 72px 72px, 138px 150px, 0 0; }
+    }
+ 
+    .accessorize-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 30;
+      padding: 6px 10px;
+      border: 3px solid var(--stroke);
+      background: var(--yellow);
+      color: var(--text-primary);
+      box-shadow: 4px 4px 0 var(--shadow);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .accessorize-btn:hover,
+    .accessorize-btn:focus-visible {
+      background: #ffffff;
+      outline: 3px solid var(--orange);
+      outline-offset: 2px;
+    }
+    .accessorize-btn:active { transform: translate(4px, 4px); box-shadow: none; }
+ 
+    .accessory-menu {
+      position: absolute;
+      top: 56px;
+      left: 10px;
+      z-index: 29;
+      width: min(330px, calc(100% - 20px));
+      max-height: calc(100% - 76px);
+      overflow: auto;
+      display: none;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border: 4px solid var(--stroke);
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 6px 6px 0 var(--shadow);
+    }
+    .accessory-menu.open { display: grid; }
+    .accessory-menu-header { display: flex; justify-content: space-between; gap: var(--space-3); align-items: flex-start; }
+    .close-menu {
+      width: 30px;
+      height: 30px;
+      border: 3px solid var(--stroke);
+      background: var(--orange);
+      color: #ffffff;
+      box-shadow: 3px 3px 0 var(--shadow);
+      font-weight: 900;
+    }
+    .accessory-grid { display: grid; gap: var(--space-2); }
+    .accessory-card {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: var(--space-2);
+      align-items: center;
+      width: 100%;
+      padding: var(--space-2);
+      border: 3px solid var(--stroke);
+      background: #fff7fb;
+      color: var(--text-primary);
+      text-align: left;
+      box-shadow: 3px 3px 0 var(--shadow);
+    }
+    .accessory-card.active { background: #dfe9ff; }
+    .accessory-card:hover,
+    .accessory-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .accessory-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--stroke);
+      background: #ffffff;
+      font-size: 22px;
+    }
+    .accessory-title { display: block; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .accessory-fact { display: block; color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+    .accessory-note {
+      padding: var(--space-2);
+      border: 2px solid var(--stroke);
+      background: var(--yellow);
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .accessory-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      user-select: none;
+    }
+    .pixel-headphones {
+      position: absolute;
+      top: 11%;
+      left: 28%;
+      width: 44%;
+      height: 15%;
+    }
+    .pixel-headphones::before,
+    .pixel-headphones::after {
+      content: "";
+      position: absolute;
+      top: 32%;
+      width: 18%;
+      height: 54%;
+      border: 4px solid var(--stroke);
+      background: var(--orange);
+      box-shadow: 3px 3px 0 rgba(32,33,63,.35);
+    }
+    .pixel-headphones::before { left: 0; }
+    .pixel-headphones::after { right: 0; }
+    .pixel-band {
+      position: absolute;
+      left: 13%;
+      top: 0;
+      width: 74%;
+      height: 58%;
+      border-top: 5px solid var(--stroke);
+      border-left: 5px solid var(--stroke);
+      border-right: 5px solid var(--stroke);
+      border-radius: 999px 999px 0 0;
+    }
+    .sparkle-set span {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: #ffffff;
+      border: 2px solid var(--stroke);
+      transform: rotate(45deg);
+      box-shadow: 2px 2px 0 rgba(32,33,63,.35);
+    }
+    .sparkle-set span:nth-child(1) { top: 16%; left: 18%; }
+    .sparkle-set span:nth-child(2) { top: 25%; right: 18%; width: 10px; height: 10px; }
+    .sparkle-set span:nth-child(3) { top: 43%; left: 14%; width: 8px; height: 8px; }
+    .bow-accessory {
+      position: absolute;
+      top: 9%;
+      right: 30%;
+      width: 74px;
+      height: 42px;
+    }
+    .bow-accessory::before,
+    .bow-accessory::after {
+      content: "";
+      position: absolute;
+      top: 7px;
+      width: 30px;
+      height: 28px;
+      border: 3px solid var(--stroke);
+      background: #ff8fcf;
+    }
+    .bow-accessory::before { left: 0; }
+    .bow-accessory::after { right: 0; }
+    .bow-knot {
+      position: absolute;
+      left: 29px;
+      top: 13px;
+      width: 16px;
+      height: 16px;
+      border: 3px solid var(--stroke);
+      background: #ffd7ef;
+      z-index: 1;
+    }
+    .accessory-none { display: none; }
+ 
+    .character-stage {
+      position: relative;
+      isolation: isolate;
+      width: min(40vw, 430px);
+      height: min(100%, 560px);
+      aspect-ratio: 4 / 5;
+      max-width: 92%;
+      max-height: calc(100% - 34px);
+      transform: translateY(14px);
+    }
+ 
+    .body-guide, .layer, .placeholder-part {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      user-select: none;
+    }
+    .body-guide {
+      z-index: 1;
+      shape-rendering: crispEdges;
+      image-rendering: pixelated;
+      filter: drop-shadow(8px 8px 0 rgba(27,27,36,.35));
+    }
+    .layer {
+      z-index: var(--z);
+      object-fit: contain;
+      object-position: center center;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .layer[src=""], .layer:not([src]) { opacity: 0; }
+ 
+    .placeholder-part {
+      color: var(--text-primary);
+      font-size: 11px;
+      text-align: center;
+      font-weight: 900;
+    }
+    .placeholder-part::before {
+      position: absolute;
+      border: 3px dashed var(--stroke);
+      background: rgba(255,255,255,.68);
+      display: grid;
+      place-items: center;
+    }
+    .placeholder-hair { z-index: 5; } .placeholder-hair::before { top: 3%; left: 28%; width: 44%; height: 20%; content: "HAIR\A EXPERIENCES"; white-space: pre; }
+    .placeholder-shirt { z-index: 4; } .placeholder-shirt::before { top: 27%; left: 23%; width: 54%; height: 29%; content: "SHIRT\A PROJECTS"; white-space: pre; }
+    .placeholder-pants { z-index: 3; } .placeholder-pants::before { top: 52%; left: 28%; width: 44%; height: 23%; content: "PANTS\A SKILLS"; white-space: pre; }
+    .placeholder-shoes { z-index: 2; } .placeholder-shoes::before { top: 75%; left: 22%; width: 56%; height: 12%; content: "SHOES\A ABOUT ME"; white-space: pre; }
+ 
+    @media (max-width: 980px) {
+      .page {
+        height: auto;
+        min-height: calc(100svh - 16px);
+        overflow: visible;
+      }
+      .topbar { align-items: flex-start; }
+      .switchboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .play-area {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(430px, 58svh) auto;
+      }
+      .info-column { height: auto; }
+      .description-panel { min-height: 300px; overflow: visible; }
+      .character-stage { width: min(82vw, 410px); height: min(56svh, 590px); }
+    }
+ 
+    @media (max-width: 560px) {
+      .page { width: min(100vw, calc(100vw - 12px)); margin: 6px auto; padding: 10px; box-shadow: 4px 4px 0 var(--shadow); }
+      .switchboard { grid-template-columns: 1fr; }
+      .switch-card { grid-template-columns: 40px minmax(0, 1fr) 40px; }
+      .arrow { width: 40px; height: 40px; }
+      .play-area { grid-template-rows: 520px auto; }
+      .character-stage { width: 100%; height: 500px; }
+    }
+</style>
+</head>
+<body>
+<main class="page">
+<header class="topbar">
+<div class="intro">
+<span class="eyebrow">Interactive portfolio · Caroline Lee</span>
+<h1>Learn about me while creating my character!</h1>
+<p class="text-secondary">Use the arrows to switch a category. My character stays on the left, while the right panel shows the selected description.</p>
+</div>
+</header>
+ 
+    <nav class="switchboard" aria-label="Character customization controls">
+<div class="switch-card active" data-control="hair">
+<button class="arrow" data-layer="hair" data-dir="-1" aria-label="Previous experience">←</button>
+<div class="switch-meta"><span class="switch-label">Experience</span><span class="switch-name" id="hairName">Field Research</span></div>
+<button class="arrow" data-layer="hair" data-dir="1" aria-label="Next experience">→</button>
+</div>
+<div class="switch-card" data-control="shirt">
+<button class="arrow" data-layer="shirt" data-dir="-1" aria-label="Previous project">←</button>
+<div class="switch-meta"><span class="switch-label">Projects</span><span class="switch-name" id="shirtName">Germplasm Evaluation</span></div>
+<button class="arrow" data-layer="shirt" data-dir="1" aria-label="Next project">→</button>
+</div>
+<div class="switch-card" data-control="pants">
+<button class="arrow" data-layer="pants" data-dir="-1" aria-label="Previous skill">←</button>
+<div class="switch-meta"><span class="switch-label">Skills</span><span class="switch-name" id="pantsName">Data Analysis</span></div>
+<button class="arrow" data-layer="pants" data-dir="1" aria-label="Next skill">→</button>
+</div>
+<div class="switch-card" data-control="shoes">
+<button class="arrow" data-layer="shoes" data-dir="-1" aria-label="Previous about me item">←</button>
+<div class="switch-meta"><span class="switch-label">About me</span><span class="switch-name" id="shoesName">Curious Builder</span></div>
+<button class="arrow" data-layer="shoes" data-dir="1" aria-label="Next about me item">→</button>
+</div>
+</nav>
+ 
+    <section class="play-area">
+<section class="panel stage-panel scene-field" id="stagePanel" aria-label="Layered pixel character preview">
+<button class="accessorize-btn" id="accessorizeBtn" type="button" aria-expanded="false" aria-controls="accessoryMenu">Accessorize</button>
+<div class="accessory-menu" id="accessoryMenu" role="dialog" aria-label="Accessory menu">
+<div class="accessory-menu-header">
+<div>
+<span class="eyebrow">Accessory menu</span>
+<h3>Choose a cute extra</h3>
+</div>
+<button class="close-menu" id="closeAccessoryMenu" type="button" aria-label="Close accessory menu">×</button>
+</div>
+<div class="accessory-grid" id="accessoryGrid"></div>
+<p class="accessory-note"><strong>Edit tip:</strong> add your own songs, facts, and cute items in the <code>accessories</code> list near the bottom of this file.</p>
+</div>
+<div class="character-stage" id="characterStage">
+<svg class="body-guide" viewBox="0 0 700 1000" role="img" aria-label="Pixel body guide">
+<!-- Cute short-legged pixel sim guide -->
+<rect x="278" y="72" width="144" height="36" fill="#4b315f"/>
+<rect x="246" y="108" width="208" height="112" fill="#4b315f"/>
+<rect x="274" y="142" width="152" height="132" fill="#f2b99b"/>
+<rect x="320" y="258" width="60" height="48" fill="#f2b99b"/>
+<rect x="238" y="306" width="224" height="222" fill="#ffd7ef"/>
+<rect x="204" y="336" width="42" height="150" fill="#f2b99b"/>
+<rect x="454" y="336" width="42" height="150" fill="#f2b99b"/>
+<rect x="258" y="528" width="78" height="178" fill="#9bd2ff"/>
+<rect x="364" y="528" width="78" height="178" fill="#9bd2ff"/>
+<rect x="224" y="706" width="124" height="48" fill="#ff8fcf"/>
+<rect x="352" y="706" width="124" height="48" fill="#ff8fcf"/>
+<rect x="314" y="180" width="20" height="20" fill="#20213f"/>
+<rect x="386" y="180" width="20" height="20" fill="#20213f"/>
+<rect x="336" y="230" width="48" height="14" fill="#ff7fbd"/>
+<rect x="304" y="166" width="14" height="10" fill="#ffffff"/>
+<rect x="376" y="166" width="14" height="10" fill="#ffffff"/>
+</svg>
+<div class="placeholder-part placeholder-shoes"></div>
+<div class="placeholder-part placeholder-pants"></div>
+<div class="placeholder-part placeholder-shirt"></div>
+<div class="placeholder-part placeholder-hair"></div>
+<img class="layer" id="shoesLayer" alt="Current shoes design" style="--z: 6;" />
+<img class="layer" id="pantsLayer" alt="Current pants design" style="--z: 7;" />
+<img class="layer" id="shirtLayer" alt="Current shirt design" style="--z: 8;" />
+<img class="layer" id="hairLayer" alt="Current hair design" style="--z: 9;" />
+<div class="accessory-layer" id="accessoryLayer" aria-hidden="true"></div>
+</div>
+</section>
+ 
+      <aside class="info-column">
+<article class="panel description-panel" aria-live="polite">
+<div class="detail-header">
+<div>
+<span class="eyebrow" id="detailCategory">Experience · Hair</span>
+<h2 id="detailTitle">Field Research</h2>
+</div>
+</div>
+ 
+          <p class="detail-body" id="detailBody">Replace this with an experience summary, such as internships, field trials, lab work, leadership, or work history.</p>
+ 
+          <ul class="detail-list" id="detailBullets"></ul>
+ 
+          <div class="stats">
+<div class="stat-row"><strong>Focus</strong><div class="bar-track"><div class="bar-fill" id="barFocus" style="--w: 82%;"></div></div></div>
+<div class="stat-row"><strong>Growth</strong><div class="bar-track"><div class="bar-fill" id="barGrowth" style="--w: 70%; background: var(--accent);"></div></div></div>
+<div class="stat-row"><strong>Impact</strong><div class="bar-track"><div class="bar-fill" id="barImpact" style="--w: 64%; background: var(--orange);"></div></div></div>
+</div>
+</article>
+ 
+        <section class="panel contact-panel" aria-label="Contact information">
+<div>
+<span class="eyebrow">Contact</span>
+<h3>Let’s connect</h3>
+</div>
+<div class="contact-grid">
+<div class="contact-item"><strong>Email</strong><span>CL2739@cornell.edu</span></div>
+<div class="contact-item"><strong>LinkedIn</strong><span>linkedin.com/in/Caroline-Yu-Kyoung-Lee</span></div>
+<div class="contact-item"><strong>Location</strong><span>Bay Area, California</span></div>
+</div>
+</section>
+</aside>
+</section>
+</main>
+ 
+  <script>
+    /*
+      Add your final transparent PNG/WebP paths in each image field.
+      Keep every design on the same transparent canvas size so the layers align.
+      hair = experiences, shirt = projects, pants = skills, shoes = about me.
+    */
+    const portfolio = {
+      hair: {
+        label: "Experience",
+        itemType: "Hair",
+        imageId: "hairLayer",
+        nameId: "hairName",
+        items: [
+          { name: "Boyce Thompson Institute", image: "", body: "Worked in a lab as an undergraduate computational biologist and lab assistant using python PANDAS", bullets: ["Large scale data analysis", "Ithaca, New York, 2024-2026", "Python, PANDAS, Data Visualization"], stats: [82, 70, 64] },
+          { name: "Syngenta", image: "", body: "Use this slot for an experience that shows how you worked with people, communicated results, or supported a shared goal.", bullets: ["Collaboration context", "Your specific role", "Outcome or reflection"], stats: [74, 80, 68] },
+          { name: "UC Davis USAID", image: "", body: "Use this slot for a class, training, research placement, or hands-on learning experience that shaped your direction.", bullets: ["Tools or methods used", "Problem explored", "How it connects to your goals"], stats: [78, 88, 58] }
+        ]
+      },
+      shirt: {
+        label: "Projects",
+        itemType: "Shirt",
+        imageId: "shirtLayer",
+        nameId: "shirtName",
+        items: [
+          { name: "Germplasm Evaluation", image: "", body: "Describe a project here: the question, your approach, and the result. Keep it short enough to scan.", bullets: ["Project goal", "Methods or data", "Result, product, or takeaway"], stats: [80, 76, 72] },
+          { name: "Data Story", image: "", body: "Use this for a project where you turned information into a clear recommendation, visual, or presentation.", bullets: ["Audience", "Dataset or source", "Decision it supported"], stats: [86, 74, 78] },
+          { name: "Independent Build", image: "", body: "Use this for something you designed, coded, tested, organized, or created from scratch.", bullets: ["What you built", "Constraints", "What changed after feedback"], stats: [72, 84, 70] }
+        ]
+      },
+      pants: {
+        label: "Skills",
+        itemType: "Pants",
+        imageId: "pantsLayer",
+        nameId: "pantsName",
+        items: [
+          { name: "Data Analysis", image: "", body: "List a skill and explain how you use it, not just that you have it.", bullets: ["Tools: R, Python, Excel, or similar", "Cleaning, visualization, or modeling", "How you check accuracy"], stats: [88, 78, 76] },
+          { name: "Field Methods", image: "", body: "Use this for practical, hands-on skills that show reliability and attention to detail.", bullets: ["Sampling or measurement", "Protocol following", "Observation and documentation"], stats: [82, 72, 80] },
+          { name: "Communication", image: "", body: "Use this for written, visual, and verbal communication skills.", bullets: ["Summaries and reports", "Presentations", "Translating technical detail for others"], stats: [76, 82, 74] }
+        ]
+      },
+      shoes: {
+        label: "About me",
+        itemType: "Shoes",
+        imageId: "shoesLayer",
+        nameId: "shoesName",
+        items: [
+          { name: "Curious Builder", image: "", body: "Share a personal introduction here: what motivates you, what you notice, and what kind of work energizes you.", bullets: ["What you care about", "How you approach problems", "What you are growing toward"], stats: [84, 86, 70] },
+          { name: "Grounded Learner", image: "", body: "Use this for values, learning style, or the way you respond to challenge and feedback.", bullets: ["How you learn", "What keeps you focused", "What teammates can expect from you"], stats: [78, 90, 66] },
+          { name: "Future Direction", image: "", body: "Use this for goals, interests, and where you want the portfolio to point next.", bullets: ["Career interests", "Topics you want to explore", "The impact you want to make"], stats: [74, 84, 78] }
+        ]
+      }
+    };
+ 
+    const state = { hair: 0, shirt: 0, pants: 0, shoes: 0 };
+    let activeLayer = "hair";
+    let activeAccessory = 0;
+    const accessories = [
+      {
+        name: "No accessory",
+        icon: "·",
+        fact: "A clean base look for the cute sim.",
+        layerHtml: ""
+      },
+      {
+        name: "Headphones",
+        icon: "♫",
+        fact: "Song slot: add a favorite song, study playlist, or comfort track here.",
+        layerHtml: '<div class="pixel-headphones"><span class="pixel-band"></span></div>'
+      },
+      {
+        name: "Sparkles",
+        icon: "✦",
+        fact: "Whimsical fact slot: add a tiny fun fact, motto, or hidden detail.",
+        layerHtml: '<div class="sparkle-set"><span></span><span></span><span></span></div>'
+      },
+      {
+        name: "Pink Bow",
+        icon: "♡",
+        fact: "Cute detail slot: add something soft, playful, or personal.",
+        layerHtml: '<div class="bow-accessory"><span class="bow-knot"></span></div>'
+      }
+    ];
+ 
+    function imageFor(layerName, index) {
+      return portfolio[layerName].items[index].image || "";
+    }
+ 
+    function renderLayer(layerName) {
+      const config = portfolio[layerName];
+      const index = state[layerName];
+      const item = config.items[index];
+      document.getElementById(config.imageId).src = imageFor(layerName, index);
+      document.getElementById(config.nameId).textContent = item.name;
+      const control = document.querySelector(`.switch-card[data-control="${layerName}"]`);
+      if (control) control.classList.toggle("active", layerName === activeLayer);
+    }
+ 
+    function renderDescription() {
+      const config = portfolio[activeLayer];
+      const item = config.items[state[activeLayer]];
+      document.getElementById("detailCategory").textContent = `${config.label} · ${config.itemType}`;
+      document.getElementById("detailTitle").textContent = item.name;
+      document.getElementById("detailBody").textContent = item.body;
+ 
+      const list = document.getElementById("detailBullets");
+      list.innerHTML = "";
+      item.bullets.forEach((bullet) => {
+        const li = document.createElement("li");
+        li.textContent = bullet;
+        list.appendChild(li);
+      });
+ 
+      const stats = item.stats || [70, 70, 70];
+      document.getElementById("barFocus").style.setProperty("--w", `${stats[0]}%`);
+      document.getElementById("barGrowth").style.setProperty("--w", `${stats[1]}%`);
+      document.getElementById("barImpact").style.setProperty("--w", `${stats[2]}%`);
+    }
+ 
+    function renderAccessories() {
+      const grid = document.getElementById("accessoryGrid");
+      grid.innerHTML = "";
+      accessories.forEach((item, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `accessory-card${index === activeAccessory ? " active" : ""}`;
+        button.innerHTML = `
+<span class="accessory-icon">${item.icon}</span>
+<span><span class="accessory-title">${item.name}</span><span class="accessory-fact">${item.fact}</span></span>
+        `;
+        button.addEventListener("click", () => {
+          activeAccessory = index;
+          renderAccessories();
+          document.getElementById("accessoryMenu").classList.remove("open");
+          document.getElementById("accessorizeBtn").setAttribute("aria-expanded", "false");
+        });
+        grid.appendChild(button);
+      });
+      document.getElementById("accessoryLayer").innerHTML = accessories[activeAccessory].layerHtml;
+    }
+ 
+    function renderAll() {
+      Object.keys(portfolio).forEach(renderLayer);
+      renderDescription();
+      renderAccessories();
+    }
+ 
+    function shift(layerName, direction) {
+      const length = portfolio[layerName].items.length;
+      state[layerName] = (state[layerName] + direction + length) % length;
+      activeLayer = layerName;
+      renderAll();
+    }
+ 
+    document.querySelectorAll(".arrow[data-layer]").forEach((button) => {
+      button.addEventListener("click", () => shift(button.dataset.layer, Number(button.dataset.dir)));
+    });
+ 
+    document.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === "ArrowRight") shift(activeLayer, 1);
+      if (event.key === "ArrowLeft") shift(activeLayer, -1);
+      const order = ["hair", "shirt", "pants", "shoes"];
+      if (["1", "2", "3", "4"].includes(event.key)) {
+        activeLayer = order[Number(event.key) - 1];
+        renderAll();
+      }
+      if (event.key === "Escape") {
+        accessoryMenu.classList.remove("open");
+        accessorizeBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+ 
+    renderAll();
+</script>
+</body>
+</html>
