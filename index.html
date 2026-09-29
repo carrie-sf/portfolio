@@ -98,16 +98,9 @@
 <h2 id="detailTitle">Field Research</h2>
 </div>
 </div>
+  <p class="detail-body" id="detailBody">Replace this with an experience summary, such as internships, field trials, lab work, leadership, or work history.</p>
+  <ul class="detail-list" id="detailBullets"></ul>
  
-          <p class="detail-body" id="detailBody">Replace this with an experience summary, such as internships, field trials, lab work, leadership, or work history.</p>
- 
-          <ul class="detail-list" id="detailBullets"></ul>
- 
-          <div class="stats">
-<div class="stat-row"><strong>Focus</strong><div class="bar-track"><div class="bar-fill" id="barFocus" style="--w: 82%;"></div></div></div>
-<div class="stat-row"><strong>Growth</strong><div class="bar-track"><div class="bar-fill" id="barGrowth" style="--w: 70%; background: var(--accent);"></div></div></div>
-<div class="stat-row"><strong>Impact</strong><div class="bar-track"><div class="bar-fill" id="barImpact" style="--w: 64%; background: var(--orange);"></div></div></div>
-</div>
 </article>
  
         <section class="panel contact-panel" aria-label="Contact information">
@@ -236,11 +229,6 @@
         li.textContent = bullet;
         list.appendChild(li);
       });
- 
-      const stats = item.stats || [70, 70, 70];
-      document.getElementById("barFocus").style.setProperty("--w", `${stats[0]}%`);
-      document.getElementById("barGrowth").style.setProperty("--w", `${stats[1]}%`);
-      document.getElementById("barImpact").style.setProperty("--w", `${stats[2]}%`);
     }
  
     function renderAccessories() {
