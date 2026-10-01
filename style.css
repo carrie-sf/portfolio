@@ -252,6 +252,8 @@ position: relative;
 overflow: hidden;
 background-color: #9bd2ff;
 background-size: 18px 18px, 18px 18px, auto;
+container-type: size;
+container-name: stage;
 }
 .stage-panel.scene-field {
 background:
@@ -467,13 +469,12 @@ z-index: 1;
 .character-stage {
 position: relative;
 isolation: isolate;
-width: min(40vw, 430px);
-height: min(100%, 560px);
+width: min(92cqw, calc((100cqh - 34px) * 0.8), 430px);
+height: auto;
 aspect-ratio: 4 / 5;
-max-width: 92%;
-max-height: calc(100% - 34px);
 transform: translateY(14px);
 }
+
 
 .body-guide, .layer, .placeholder-part {
 position: absolute;
