@@ -499,24 +499,6 @@ image-rendering: crisp-edges;
 }
 .layer[src=""], .layer:not([src]) { opacity: 0; }
 
-.placeholder-part {
-color: var(--text-primary);
-font-size: 11px;
-text-align: center;
-font-weight: 900;
-}
-.placeholder-part::before {
-position: absolute;
-border: 3px dashed var(--stroke);
-background: rgba(255,255,255,.68);
-display: grid;
-place-items: center;
-}
-.placeholder-hair { z-index: 5; } .placeholder-hair::before { top: 3%; left: 28%; width: 44%; height: 20%; content: "HAIR\A EXPERIENCES"; white-space: pre; }
-.placeholder-shirt { z-index: 4; } .placeholder-shirt::before { top: 27%; left: 23%; width: 54%; height: 29%; content: "SHIRT\A PROJECTS"; white-space: pre; }
-.placeholder-pants { z-index: 3; } .placeholder-pants::before { top: 52%; left: 28%; width: 44%; height: 23%; content: "PANTS\A SKILLS"; white-space: pre; }
-.placeholder-shoes { z-index: 2; } .placeholder-shoes::before { top: 75%; left: 22%; width: 56%; height: 12%; content: "SHOES\A ABOUT ME"; white-space: pre; }
-
 @media (max-width: 980px) {
 .page {
     height: auto;
