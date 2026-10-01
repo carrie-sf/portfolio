@@ -20,27 +20,39 @@
 <nav class="switchboard" aria-label="Character customization controls">
   <div class="switch-card active" data-control="hair">
     <button class="arrow" data-layer="hair" data-dir="-1" aria-label="Previous experience">←</button>
-  <div class="switch-meta"><span class="switch-label">Experience</span><span class="switch-name" id="hairName">Field Research</span></div>
-    <button class="arrow" data-layer="hair" data-dir="1" aria-label="Next experience">→</button>
+  <div class="switch-meta">
+    <span class="switch-label">Experience</span>
+    <span class="switch-name" id="hairName">Field Research</span>
+  </div>
+    <button class="arrow" data-layer="hair" data-dir="1" aria-label="Next experience">→
+    </button>
   </div>
   <div class="switch-card" data-control="shirt">
 <button class="arrow" data-layer="shirt" data-dir="-1" aria-label="Previous project">←</button>
-<div class="switch-meta"><span class="switch-label">Projects</span><span class="switch-name" id="shirtName">Germplasm Evaluation</span></div>
+<div class="switch-meta">
+  <span class="switch-label">Projects</span>
+  <span class="switch-name" id="shirtName">Germplasm Evaluation</span>
+</div>
 <button class="arrow" data-layer="shirt" data-dir="1" aria-label="Next project">→</button>
   </div>
   <div class="switch-card" data-control="pants">
     <button class="arrow" data-layer="pants" data-dir="-1" aria-label="Previous skill">←</button>
-  <div class="switch-meta"><span class="switch-label">Skills</span><span class="switch-name" id="pantsName">Data Analysis</span></div>
+  <div class="switch-meta">
+    <span class="switch-label">Skills</span>
+    <span class="switch-name" id="pantsName">Data Analysis</span>
+  </div>
     <button class="arrow" data-layer="pants" data-dir="1" aria-label="Next skill">→</button>
   </div>
   <div class="switch-card" data-control="shoes">
     <button class="arrow" data-layer="shoes" data-dir="-1" aria-label="Previous about me item">←</button>
-  <div class="switch-meta"><span class="switch-label">About me</span><span class="switch-name" id="shoesName">Hobbies</span></div>
+  <div class="switch-meta">
+    <span class="switch-label">About me</span>
+    <span class="switch-name" id="shoesName">Hobbies</span>
+  </div>
     <button class="arrow" data-layer="shoes" data-dir="1" aria-label="Next about me item">→</button>
   </div>
 </nav>
  
-
 <section class="play-area">
 <section class="panel stage-panel scene-field" id="stagePanel" aria-label="Layered pixel character preview">
 <button class="accessorize-btn" id="accessorizeBtn" type="button" aria-expanded="false" aria-controls="accessoryMenu">Accessorize</button>
@@ -53,7 +65,10 @@
 <button class="close-menu" id="closeAccessoryMenu" type="button" aria-label="Close accessory menu">×</button>
 </div>
 <div class="accessory-grid" id="accessoryGrid"></div>
-<p class="accessory-note"><strong>Edit tip:</strong> add your own songs, facts, and cute items in the <code>accessories</code> list near the bottom of this file.</p>
+<p class="accessory-note">
+  <strong>Edit tip:</strong> add your own songs, facts, and cute items in the 
+  <code>accessories</code> list near the bottom of this file.
+</p>
 </div>
 
 <div class="character-stage" id="characterStage">
@@ -91,15 +106,14 @@
  
 <aside class="info-column">
 <article class="panel description-panel" aria-live="polite">
-<div class="detail-header">
-<div>
-<span class="eyebrow" id="detailCategory">Experience · Hair</span>
-<h2 id="detailTitle">Field Research</h2>
-</div>
-</div>
-  <p class="detail-body" id="detailBody">Replace this with an experience summary, such as internships, field trials, lab work, leadership, or work history.</p>
-  <ul class="detail-list" id="detailBullets"></ul>
- 
+  <div class="detail-header">
+  <div>
+  <span class="eyebrow" id="detailCategory">Experience · Hair</span>
+  <h2 id="detailTitle">Field Research</h2>
+  </div>
+  </div>
+    <p class="detail-body" id="detailBody">Replace this with an experience summary, such as internships, field trials, lab work, leadership, or work history.</p>
+    <ul class="detail-list" id="detailBullets"></ul>
 </article>
  
         <section class="panel contact-panel" aria-label="Contact information">
@@ -116,7 +130,6 @@
 </aside>
 </section>
 </main>
- 
   <script>
     const portfolio = {
       hair: {
