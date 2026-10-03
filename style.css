@@ -215,7 +215,7 @@ white-space: nowrap;
 }
 
 .detail-body {
-color: var(--text-secondary);
+color: var(--text-primary);
 font-size: clamp(14px, 1.3vw, 16px);
 line-height: 1.45;
 }
